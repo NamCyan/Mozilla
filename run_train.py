@@ -65,6 +65,11 @@ def main():
 
     dataset_id = 0
 
+    loss_file_path = os.path.join(opts.log_dir, "LOSS_LOG.txt")
+    loss_file = open(loss_file_path, 'a')
+    loss_file.writelines(f"MOO {opts.mul_task_type}  Max Epoch {opts.train_epoch}")
+    loss_file.write('\n')  
+
     perm_id = opts.perm_id
     if opts.setting == "classic":
         streams = json.load(open(opts.stream_file))
@@ -274,6 +279,8 @@ def main():
                     output_log(
                         f"Epoch {worker.epoch:3d}: Test {test_metrics}"
                     )
+                loss_file.writelines(f"Epoch {worker.epoch:3d}  Train Loss {epoch_loss} {epoch_metric} Dev {dev_metrics} Test {test_metrics}")
+                loss_file.write('\n')
                 best_dev = dev_metrics
                 worker.save(model, optimizer, postfix=str(loader_id))
                 best_test = test_metrics
@@ -386,9 +393,10 @@ def main():
                     best_dev = dev_metrics; best_test = test_metrics
                 if not opts.finetune:
                     model.set_history()
-                for output_log in [print, worker._log]:
+                for output_log in [print, worker._log, loss_file.writelines]:
                     output_log(f"BEST DEV {loader_id-1}: {best_dev if best_dev is not None else 0}")
                     output_log(f"BEST TEST {loader_id-1}: {best_test if best_test is not None else 0}")
+                loss_file.write('\n') 
                 if loader_id == len(loaders) - 2:
                     termination = True
                 else:
@@ -424,6 +432,6 @@ def main():
                         model.nslots = max(learned_labels) + 1
                 worker.epoch = 0
                 best_dev = None; best_test = None
-
+    loss_file.close()
 if __name__ == "__main__":
     main()

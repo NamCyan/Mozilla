@@ -208,7 +208,7 @@ class lm_ot(torch.nn.Module):
     def softmax(self, feat):
         return torch.nn.functional.softmax(feat, dim=-1)
     
-    def forward2(self, inputs, outputs):
+    def kl_forward(self, inputs, outputs):
         output11 = self.softmax(self.model(inputs[:, :self.hidden_size])/opts.lm_temp)
         output12 = self.softmax(self.model(inputs[:, self.hidden_size:])/opts.lm_temp)
         output1 = (output11+output12)/2
@@ -217,26 +217,29 @@ class lm_ot(torch.nn.Module):
         input_ = F.log_softmax(output2, dim=1)
         target = F.softmax(output1, dim=1)
         return kl_loss(input_, target)
-    
+
+    def ot_forward(self, inputs, outputs):
+        non_verbs = rd.sample(self.non_verbs, 3000//5)
+        spans = list(set(self.spans + self.verbs))
+        verbs = torch.tensor(spans, device=self.device).reshape(1,-1)#torch.cat([self.verbs, torch.tensor(spans, device=self.device).reshape(1, -1)], dim=1)
+        output11 = self.softmax(self.get_element(self.model(inputs[:, :self.hidden_size]), verbs)/opts.lm_temp)
+        output12 = self.softmax(self.get_element(self.model(inputs[:, self.hidden_size:]), verbs)/opts.lm_temp)
+        output1 = (output11+output12)/2
+        #output1 = self.get_element(output1, self.verbs)
+        output1 = output1/torch.sum(output1, dim=1, keepdim=True)
+        output2 = self.softmax(self.linear(outputs)[:, 1:nslots])
+        return self.ot_loss(output2, output1, nslots, verbs)
+
     def forward(self, inputs, outputs, nslots):
         if opts.no_lm_head: 
             return 0
         
         if not opts.ot:
-            return self.forward2(inputs, outputs)
+            return self.kl_forward(inputs, outputs)
         else:
-            non_verbs = rd.sample(self.non_verbs, 3000//5)
-            spans = list(set(self.spans + self.verbs))
-            verbs = torch.tensor(spans, device=self.device).reshape(1,-1)#torch.cat([self.verbs, torch.tensor(spans, device=self.device).reshape(1, -1)], dim=1)
-            output11 = self.softmax(self.get_element(self.model(inputs[:, :self.hidden_size]), verbs)/opts.lm_temp)
-            output12 = self.softmax(self.get_element(self.model(inputs[:, self.hidden_size:]), verbs)/opts.lm_temp)
-            output1 = (output11+output12)/2
-            #output1 = self.get_element(output1, self.verbs)
-            output1 = output1/torch.sum(output1, dim=1, keepdim=True)
-            output2 = self.softmax(self.linear(outputs)[:, 1:nslots])
-            
-            return self.ot_loss(output2, output1, nslots, verbs)
-    
+            return self.ot_forward(inputs, outputs)
+        
+        
     def get_prototype(self, features):
         scores = []
         batch_size = 1024

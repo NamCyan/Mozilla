@@ -275,7 +275,112 @@ class NashMTL(WeightMethod):
 
         return loss, extra_outputs
 
+class FairGrad(WeightMethod):
+    """
+    FairGrad.
 
+    This method is proposed in `Fair Resource Allocation in Multi-Task Learning (ICML 2024)
+    <https://openreview.net/forum?id=KLmWRMg6nL>`_ and implemented by modifying from the 
+    `official PyTorch implementation <https://github.com/OptMN-Lab/fairgrad>`_.
+    """
+    def __init__(self, n_tasks: int, device: torch.device, **kwargs):
+        super().__init__(n_tasks, device, **kwargs)
+        self.kwargs = kwargs
+    def get_weighted_loss(
+        self,
+        losses: torch.Tensor,
+        shared_parameters: Union[List[torch.nn.parameter.Parameter], torch.Tensor],
+        task_specific_parameters: Union[
+            List[torch.nn.parameter.Parameter], torch.Tensor
+        ],
+        last_shared_parameters: Union[List[torch.nn.parameter.Parameter], torch.Tensor],
+        representation: Union[torch.nn.parameter.Parameter, torch.Tensor],
+        **kwargs,
+    ) -> Tuple[torch.Tensor, dict]:
+        """
+        Compute the weighted loss using FairGrad.
+
+        Parameters
+        ----------
+        losses : torch.Tensor
+            Tensor of task-specific losses.
+        shared_parameters : Union[List[torch.nn.parameter.Parameter], torch.Tensor]
+        task_specific_parameters : Union[List[torch.nn.parameter.Parameter], torch.Tensor]
+        last_shared_parameters : Union[List[torch.nn.parameter.Parameter], torch.Tensor]
+        representation : Union[torch.nn.parameter.Parameter, torch.Tensor]
+        kwargs : dict
+            Additional arguments, including FairGrad_alpha.
+
+        Returns
+        -------
+        loss : torch.Tensor
+            Weighted loss for backward computation.
+        extra_outputs : dict
+            Additional outputs, including task weights.
+        """
+        alpha = self.kwargs.get("FairGrad_alpha", 0.8)
+
+        if representation is not None:
+            raise ValueError("FairGrad does not support representation gradients (rep_grad=True)")
+
+        # Compute gradient matrix G
+        grads = self._compute_grad(losses, shared_parameters)
+        GTG = torch.mm(grads, grads.t())
+
+        # Solve the FairGrad optimization problem using Torch
+        x = torch.ones(self.n_tasks, device=self.device, requires_grad=True) / self.n_tasks
+        A = GTG.data.cpu().numpy()
+
+        def objfn(x):
+            return np.dot(A, x) - np.power(1 / x, 1 / alpha)
+
+        res = least_squares(objfn, x.cpu().detach().numpy(), bounds=(0, np.inf))
+        w_cpu = res.x
+
+
+        weights = torch.Tensor(w_cpu).to(self.device)
+
+        # Compute weighted loss
+        try:
+            weighted_loss = sum([losses[i] * weights[i] for i in range(len(weights))])
+        except:
+            print("FairGrad failed")
+            print(weights.shape)
+            print(losses)
+        # weighted_loss = torch.sum(weights * losses)
+
+        # Return loss and extra outputs
+        extra_outputs = {"weights": weights.cpu().numpy()}
+        return weighted_loss, extra_outputs
+
+    def _compute_grad(self, losses: torch.Tensor, parameters: List[torch.nn.parameter.Parameter]):
+        """
+        Compute gradients of the losses w.r.t. the shared parameters.
+
+        Parameters
+        ----------
+        losses : torch.Tensor
+        parameters : List[torch.nn.parameter.Parameter]
+
+        Returns
+        -------
+        grads : torch.Tensor
+            Matrix of gradients (n_tasks x n_parameters).
+        """
+        grads = []
+        for i in range(self.n_tasks):
+            grad = torch.autograd.grad(
+                losses[i], parameters, retain_graph=True, create_graph=False, allow_unused=True
+            )
+            grad = [
+                g.flatten() if g is not None else torch.zeros_like(p, device=self.device).flatten()
+                for g, p in zip(grad, parameters)
+            ]
+            grad_flat = torch.cat(grad)
+            grads.append(grad_flat)
+
+        return torch.stack(grads)
+        
 class LinearScalarization(WeightMethod):
     """Linear scalarization baseline L = sum_j w_j * l_j where l_j is the loss for task j and w_h"""
 

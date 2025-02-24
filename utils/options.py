@@ -51,7 +51,7 @@ def define_arguments(parser):
     parser.add_argument('--mul_task', action="store_true", help='epochs to train')
     parser.add_argument("--contrastive", action="store_true", help="contrastive loss")
     parser.add_argument("--mul_distill", action="store_true")
-    parser.add_argument("--mul_task_type", type=str, choices=['NashMTL','PCGrad','IMTLG', 'MGDA'], default='NashMTL')
+    parser.add_argument("--mul_task_type", type=str, choices=['NashMTL','PCGrad','IMTLG', 'MGDA', 'FairGrad'], default='NashMTL')
     parser.add_argument("--naive_replay", action="store_true")
 
 
