@@ -10,7 +10,7 @@ import gc
 
 import traceback
 from utils.options import parse_arguments
-from .weight_methods import WeightMethods, PCGrad, IMTLG, MGDA
+from .weight_methods import *
 from .sam import SAM
 opts = parse_arguments()
 if opts.mul_task_type == 'NashMTL':
@@ -238,7 +238,7 @@ class Worker(object):
                                 self.mul_loss = NashMTL(n_tasks=len(loss), device=self.device)
 
                             if opts.mul_task_type == 'FairGrad':
-                                    self.mul_loss = FairGrad(n_tasks=len(loss), device=self.device)
+                                self.mul_loss = FairGrad(n_tasks=len(loss), device=self.device)
                         try:
                             if self.mul_loss.n_tasks != len(loss):
                                 
@@ -261,7 +261,9 @@ class Worker(object):
                                     self.mul_loss = NashMTL(n_tasks=len(loss), device=self.device)
 
                                 if opts.mul_task_type == 'FairGrad':
+                                    print("Go to FairGrad")
                                     self.mul_loss = FairGrad(n_tasks=len(loss), device=self.device)
+                                    print("Done: ", self.mul_loss)
 
                             if opts.mul_task_type == 'IMTLG' or  opts.mul_task_type == 'PCGrad' or opts.mul_task_type == 'MGDA':
                                 loss = torch.stack(loss) * 1.0
@@ -345,7 +347,7 @@ class Worker(object):
                     return x.state_dict()
                 except Exception as e:
                     raise ValueError(f"model, optimizer or scheduler to save must be either a dict or have callable state_dict method")
-        if postfix is not "":
+        if postfix != "":
             save_model = os.path.join(save_dirs, f"{self.save_model}.{postfix}")
         else:
             save_model = os.path.join(save_dirs, self.save_model)

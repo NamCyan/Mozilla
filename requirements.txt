@@ -1,7 +1,6 @@
-transformers==4.23.1
-torch==1.9.1
-torchmeta==1.8.0
-numpy==1.21.6
+transformers
+torch
+numpy
 tqdm==4.64.1
 scikit-learn
 cvxpy

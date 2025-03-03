@@ -7,7 +7,8 @@ import cvxpy as cp
 import numpy as np
 import torch
 import torch.nn.functional as F
-from scipy.optimize import minimize
+from scipy.optimize import minimize, least_squares  
+
 
 from .min_norm_solvers import MinNormSolver, gradient_normalizers
 

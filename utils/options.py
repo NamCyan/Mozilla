@@ -23,7 +23,7 @@ def define_arguments(parser):
     parser.add_argument('--kt-delta', type=float, default=0.5, help="")
     parser.add_argument('--seed', type=int, default=2147483647, help="random seed")
     parser.add_argument('--save-model', type=str, default="model", help="path to save checkpoints")
-    parser.add_argument('--load-model', type=str, default="", help="path to saved checkpoint")
+    parser.add_argument('--load-model', type=str, default="results/checkpoint", help="path to saved checkpoint")
     parser.add_argument('--log-dir', type=str, default="./log/", help="path to save log file")
     parser.add_argument('--train-epoch', type=int, default=50, help='epochs to train')
     parser.add_argument('--test-only', action="store_true", help='is testing')

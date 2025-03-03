@@ -65,6 +65,8 @@ def main():
 
     dataset_id = 0
 
+    os.makedirs(opts.load_model, exist_ok=True)
+
     loss_file_path = os.path.join(opts.log_dir, "LOSS_LOG.txt")
     loss_file = open(loss_file_path, 'a')
     loss_file.writelines(f"MOO {opts.mul_task_type}  Max Epoch {opts.train_epoch}")
@@ -269,7 +271,7 @@ def main():
                 # if opts.debug:
                 #     import pdb
                 #     pdb.set_trace()
-                torch.save(test_outputs, f"log/{os.path.basename(opts.load_model)}.output")
+                torch.save(test_outputs, f"{opts.load_model}/model.output")
                 test_scores, (test_p, test_r, test_f) = by_class(test_outputs["prediction"], test_outputs["label"], learned_labels=learned_labels)
                 test_class_f1 = {k: test_scores[k][2] for k in test_scores}
                 for k,v in test_class_f1.items():

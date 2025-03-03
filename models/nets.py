@@ -11,7 +11,7 @@ from sklearn.cluster import KMeans
 #from pycave.bayes import GMM
 from sklearn.mixture import GaussianMixture as GMM
 from torch.nn.modules.linear import Linear
-from torchmeta.modules import MetaLinear, MetaSequential, MetaModule
+from utils.torchmeta_modules import MetaLinear, MetaModule
 from transformers import AutoModelForMaskedLM
 from tqdm import tqdm
 import random as rd
@@ -218,7 +218,7 @@ class lm_ot(torch.nn.Module):
         target = F.softmax(output1, dim=1)
         return kl_loss(input_, target)
 
-    def ot_forward(self, inputs, outputs):
+    def ot_forward(self, inputs, outputs, nslots):
         non_verbs = rd.sample(self.non_verbs, 3000//5)
         spans = list(set(self.spans + self.verbs))
         verbs = torch.tensor(spans, device=self.device).reshape(1,-1)#torch.cat([self.verbs, torch.tensor(spans, device=self.device).reshape(1, -1)], dim=1)
@@ -237,7 +237,7 @@ class lm_ot(torch.nn.Module):
         if not opts.ot:
             return self.kl_forward(inputs, outputs)
         else:
-            return self.ot_forward(inputs, outputs)
+            return self.ot_forward(inputs, outputs, nslots)
         
         
     def get_prototype(self, features):

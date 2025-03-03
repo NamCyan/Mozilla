@@ -21,7 +21,7 @@ do
     cp -r utils/datastream.py ${log_p}/perm_${i}/
     cp -r utils/worker.py ${log_p}/perm_${i}/
 
-    CUDA_VISIBLE_DEVICES=0 python run_train.py --log-dir "${log_p}/perm_${i}" --mul_task_type ${method} --feature-root "data/features" --stream-file "data/MAVEN/streams.json" --perm-id ${i} --dropout "normal" --p 0.2 --mul_distill --kt --kt2 --train-epoch 15 --patience 5  --generate  --batch-size 128 --mode herding --clusters 4 --mul_task --num_sam_loss 2 --learning-rate 1e-4 > ${log_p}/perm_${i}/exp.log
+    CUDA_VISIBLE_DEVICES=0 python run_train.py --ot --log-dir "${log_p}/perm_${i}" --mul_task_type ${method} --feature-root "data/features" --stream-file "data/MAVEN/streams.json" --perm-id ${i} --dropout "normal" --p 0.2 --mul_distill --kt --kt2 --train-epoch 15 --patience 5  --generate  --batch-size 128 --mode herding --clusters 4 --mul_task --num_sam_loss 2 --learning-rate 1e-4 > ${log_p}/perm_${i}/exp.log
 
 
 done
