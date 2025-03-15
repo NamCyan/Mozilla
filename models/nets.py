@@ -11,7 +11,7 @@ from sklearn.cluster import KMeans
 #from pycave.bayes import GMM
 from sklearn.mixture import GaussianMixture as GMM
 from torch.nn.modules.linear import Linear
-from utils.torchmeta_modules import MetaLinear, MetaModule
+from torchmeta.modules import MetaLinear, MetaSequential, MetaModule
 from transformers import AutoModelForMaskedLM
 from tqdm import tqdm
 import random as rd
@@ -218,7 +218,7 @@ class lm_ot(torch.nn.Module):
         target = F.softmax(output1, dim=1)
         return kl_loss(input_, target)
 
-    def ot_forward(self, inputs, outputs, nslots):
+    def ot_forward(self, inputs, outputs):
         non_verbs = rd.sample(self.non_verbs, 3000//5)
         spans = list(set(self.spans + self.verbs))
         verbs = torch.tensor(spans, device=self.device).reshape(1,-1)#torch.cat([self.verbs, torch.tensor(spans, device=self.device).reshape(1, -1)], dim=1)
@@ -229,17 +229,92 @@ class lm_ot(torch.nn.Module):
         output1 = output1/torch.sum(output1, dim=1, keepdim=True)
         output2 = self.softmax(self.linear(outputs)[:, 1:nslots])
         return self.ot_loss(output2, output1, nslots, verbs)
-
+    
+    def mi_forward(self, inputs, outputs):
+        """
+        Compute mutual information loss using InfoNCE approximation over full vocabulary distributions
+        with numerical stability improvements.
+        
+        Args:
+            inputs: Input features to the language model
+            outputs: Outputs from classification head
+        
+        Returns:
+            MI loss value
+        """
+        batch_size = inputs.size(0)
+        
+        # Get representations from LM head as distributions over vocabulary
+        # Process raw logits, not probabilities, for numerical stability
+        lm_logits1 = self.model(inputs[:, :self.hidden_size])  # First half
+        lm_logits2 = self.model(inputs[:, self.hidden_size:])  # Second half
+        lm_logits = (lm_logits1 + lm_logits2) / 2  # Average logits
+        
+        # Get logits from the classification head 
+        cls_logits = self.r2v(outputs)  # Maps to vocabulary space
+        
+        # Temperature parameter for scaling - critically important for large vocab
+        tau = opts.mi_temp if hasattr(opts, 'mi_temp') else 1.0
+        
+        # Create a bilinear scorer W if not already created
+        if not hasattr(self, 'W_mi'):
+            # Initialize with a small value to prevent explosion
+            init_scale = 0.01
+            self.W_mi = torch.nn.Parameter(
+                torch.eye(cls_logits.size(-1), device=self.device) * init_scale,
+                requires_grad=True
+            )
+        
+        # Matrix multiplication with W (bilinear form)
+        # Shape: [batch_size, vocab_size]
+        projected_cls = torch.matmul(cls_logits, self.W_mi)
+        
+        # Normalize logits to prevent overflow
+        projected_cls = projected_cls / tau
+        
+        # For positive pairs, compute self-similarity
+        # Shape: [batch_size]
+        pos_scores = torch.sum(projected_cls * lm_logits, dim=1)
+        
+        # For all pairs (including negatives), compute pairwise similarity
+        # Shape: [batch_size, batch_size]
+        all_scores = torch.matmul(projected_cls, lm_logits.t())
+        
+        # For numerical stability: subtract max from each row
+        max_scores, _ = torch.max(all_scores, dim=1, keepdim=True)
+        all_scores = all_scores - max_scores
+        pos_scores = pos_scores - max_scores.squeeze(1)
+        
+        # Compute log probabilities using log-sum-exp trick
+        exp_scores = torch.exp(all_scores)
+        sum_exp_scores = torch.sum(exp_scores, dim=1)  # [batch_size]
+        log_sum_exp = torch.log(sum_exp_scores)  # [batch_size]
+        
+        exp_pos_scores = torch.exp(pos_scores)
+        log_exp_pos_scores = torch.log(exp_pos_scores)  # [batch_size]
+        # InfoNCE loss: positive scores - log sum exp
+        infonce = torch.mean(log_exp_pos_scores - log_sum_exp)
+        
+        # Check for NaN and replace with small value if needed
+        if torch.isnan(infonce):
+            print("Warning: NaN detected in MI loss. Using fallback value.")
+            infonce = torch.tensor(-1.0, device=self.device)
+        
+        # Negate InfoNCE since we want to maximize MI (minimize -MI)
+        mi_loss = -infonce
+        
+        return mi_loss
     def forward(self, inputs, outputs, nslots):
-        if opts.no_lm_head: 
+        if opts.no_lm_head:
             return 0
         
-        if not opts.ot:
+        if opts.mi:  # Add an option for mutual information
+            return self.mi_forward(inputs, outputs)
+        elif not opts.ot:
             return self.kl_forward(inputs, outputs)
         else:
-            return self.ot_forward(inputs, outputs, nslots)
-        
-        
+            return self.ot_forward(inputs, outputs)
+            
     def get_prototype(self, features):
         scores = []
         batch_size = 1024
