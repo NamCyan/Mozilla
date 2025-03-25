@@ -310,7 +310,8 @@ def main():
                     #model.set_clusters(exemplar_loaders[loader_id-1])
                     model.set_exemplar(exemplar_loaders[loader_id-1], generate_ratio=opts.generate_ratio, generate=opts.generate, center_ratio=opts.center_ratio, mode=opts.mode, num_clusters=opts.clusters)
                 model.set_class()
-                model.lm_head.expand(model.nslots)
+                if opts.lmh:
+                    model.lm_head.expand(model.nslots)
 
                 if opts.balance == "icarl":
                     model.set_none_feat(loaders[loader_id-1])

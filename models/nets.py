@@ -11,7 +11,7 @@ from sklearn.cluster import KMeans
 #from pycave.bayes import GMM
 from sklearn.mixture import GaussianMixture as GMM
 from torch.nn.modules.linear import Linear
-from torchmeta.modules import MetaLinear, MetaSequential, MetaModule
+from utils.torchmeta_modules import MetaLinear, MetaModule
 from transformers import AutoModelForMaskedLM
 from tqdm import tqdm
 import random as rd
@@ -218,7 +218,7 @@ class lm_ot(torch.nn.Module):
         target = F.softmax(output1, dim=1)
         return kl_loss(input_, target)
 
-    def ot_forward(self, inputs, outputs):
+    def ot_forward(self, inputs, outputs, nslots):
         non_verbs = rd.sample(self.non_verbs, 3000//5)
         spans = list(set(self.spans + self.verbs))
         verbs = torch.tensor(spans, device=self.device).reshape(1,-1)#torch.cat([self.verbs, torch.tensor(spans, device=self.device).reshape(1, -1)], dim=1)
@@ -246,12 +246,18 @@ class lm_ot(torch.nn.Module):
         
         # Get representations from LM head as distributions over vocabulary
         # Process raw logits, not probabilities, for numerical stability
-        lm_logits1 = self.model(inputs[:, :self.hidden_size])  # First half
-        lm_logits2 = self.model(inputs[:, self.hidden_size:])  # Second half
-        lm_logits = (lm_logits1 + lm_logits2) / 2  # Average logits
+        output11 = self.softmax(self.model(inputs[:, :self.hidden_size])/opts.lm_temp)
+        output12 = self.softmax(self.model(inputs[:, self.hidden_size:])/opts.lm_temp)
+        lm_logits = (output11+output12)/2
+        lm_logits = F.softmax(lm_logits, dim=1)
+
+        # lm_logits1 = self.model(inputs[:, :self.hidden_size])  # First half
+        # lm_logits2 = self.model(inputs[:, self.hidden_size:])  # Second half
+        # lm_logits = (lm_logits1 + lm_logits2) / 2  # Average logits
         
         # Get logits from the classification head 
-        cls_logits = self.r2v(outputs)  # Maps to vocabulary space
+        # cls_logits = self.r2v(outputs)  # Maps to vocabulary space
+        cls_logits = self.softmax(self.r2v(outputs))
         
         # Temperature parameter for scaling - critically important for large vocab
         tau = opts.mi_temp if hasattr(opts, 'mi_temp') else 1.0
@@ -304,16 +310,17 @@ class lm_ot(torch.nn.Module):
         mi_loss = -infonce
         
         return mi_loss
+    
     def forward(self, inputs, outputs, nslots):
         if opts.no_lm_head:
             return 0
         
         if opts.mi:  # Add an option for mutual information
             return self.mi_forward(inputs, outputs)
-        elif not opts.ot:
-            return self.kl_forward(inputs, outputs)
+        elif opts.ot:
+            return self.ot_forward(inputs, outputs, nslots)
         else:
-            return self.ot_forward(inputs, outputs)
+            return self.kl_forward(inputs, outputs)
             
     def get_prototype(self, features):
         scores = []
@@ -359,10 +366,11 @@ class LInEx(MetaModule):
         else:
             self.input_map = lambda x: x
         self.classes = MetaLinear(hidden_dim, max_slots, bias=False)
-        self.lm_head = lm_ot(max_slots, self.classes, device)
-        self.lm_mode = "ot"
-        for param in self.lm_head.model.parameters():
-            param.requires_grad = False
+        if opts.lmh:
+            self.lm_head = lm_ot(max_slots, self.classes, device)
+            self.lm_mode = "ot"
+            for param in self.lm_head.model.parameters():
+                param.requires_grad = False
         self.learned_classes =  None
         _mask = torch.zeros(1, max_slots, dtype=torch.float, device=device)
         _mask[:, init_slots:] = float("-inf")
@@ -505,9 +513,10 @@ class LInEx(MetaModule):
             features, labels = batch
         else:
             features, labels = batch.features, batch.labels
-            spans = batch.spans.cpu().numpy()
-            spans = list(set([j for i in spans for j in i]))
-            self.lm_head.spans = spans
+            if opts.lmh:
+                spans = batch.spans.cpu().numpy()
+                spans = list(set([j for i in spans for j in i]))
+                self.lm_head.spans = spans
 
         all_inputs = []
         all_labels = []
@@ -561,17 +570,22 @@ class LInEx(MetaModule):
                     print(labels, nslots, scores[:, :nslots])
                     input()
             loss = 0
-            if opts.no_class_loss == False:
-                loss += 0.2*self.class_loss()
-            loss += 0.2*self.lm_head(features, inputs, self.nslots)
-            if len(plabels) > 0:
-                loss1 = self.crit(scores[plabels, :], labels[plabels])
-                #loss_list.append(loss1*5)
-                loss += loss1*balance_na*len(plabels)/(len(plabels)*balance_na + len(nlabels))
-            if len(nlabels) > 0:
-                loss2 = self.crit(scores[nlabels, :], labels[nlabels])
-                #loss_list.append(loss2)
-                loss += loss2*len(nlabels)/(len(plabels)*balance_na + len(nlabels))
+
+            if opts.lmh:
+                if opts.no_class_loss == False:
+                    loss += 0.2*self.class_loss()
+                loss += 0.2*self.lm_head(features, inputs, self.nslots)
+            if opts.loss_trick:
+                if len(plabels) > 0:
+                    loss1 = self.crit(scores[plabels, :], labels[plabels])
+                    #loss_list.append(loss1*5)
+                    loss += loss1*balance_na*len(plabels)/(len(plabels)*balance_na + len(nlabels))
+                if len(nlabels) > 0:
+                    loss2 = self.crit(scores[nlabels, :], labels[nlabels])
+                    #loss_list.append(loss2)
+                    loss += loss2*len(nlabels)/(len(plabels)*balance_na + len(nlabels))
+            else:
+                loss += self.crit(scores, labels)
             rate = 128/self.loader_length
             try:
                 loss_list.append((loss+lambda_coef*self.compute_KL_bernoulli(self.input_map[2].log_alpha)*rate)
@@ -744,7 +758,8 @@ class LInEx(MetaModule):
                         torch.softmax(exemplar_old_scores[:self.history["nslots"]] * tau, dim=1) * torch.log_softmax(
                             exemplar_scores[:self.history["nslots"]], dim=1), dim=1).mean()
                     #loss_list.append(self.lm_head(exemplar_features.to(self.device), exemplar_inputs.to(self.device), self.nslots))
-                    loss_exemplar_distill += 0.2*self.lm_head(exemplar_features.to(self.device), exemplar_inputs.to(self.device), self.nslots)
+                    if opts.lmh:
+                        loss_exemplar_distill += 0.2*self.lm_head(exemplar_features.to(self.device), exemplar_inputs.to(self.device), self.nslots)
 
                     if hyer_distill:
                         # exemplar_old_hiddens_mlp
