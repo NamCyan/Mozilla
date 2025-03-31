@@ -73,6 +73,9 @@ def define_arguments(parser):
     parser.add_argument("--llm2vec", action="store_true", help="llm2vec")
     parser.add_argument("--no_lm_head", action="store_true", help="disable lm head")
     parser.add_argument("--no_class_loss", action="store_true", help="disable class loss")
+    parser.add_argument("--fairgrad_alpha", type=float, default=0.8)
+    parser.add_argument("--class_alpha", type=float, default=0.2)
+    parser.add_argument("--lm_temp", type=float, default=0.2)
 
 
 PERM = [[0, 1, 2, 3,4], [4, 3, 2, 1, 0], [0, 3, 1, 4, 2], [1, 2, 0, 3, 4], [3, 4, 0, 1, 2]]

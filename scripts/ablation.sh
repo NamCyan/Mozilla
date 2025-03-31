@@ -12,19 +12,10 @@ gen_rate=10
 
 for i in 0 1 2 3 4
 do
-    # if [ ! -d  "${log_p}/perm_${i}" ];
-    # then
-    #     mkdir -p ${log_p}/perm_${i}
-    # fi
-
-    # touch ${log_p}/perm_${i}/exp.log
-    # cp -r models/nets.py ${log_p}/perm_${i}/
-    # cp -r utils/datastream.py ${log_p}/perm_${i}/
-    # cp -r utils/worker.py ${log_p}/perm_${i}/
     for naloss_ratio in 40
     do
         # log_p=results/ace/${method}_narate-${naloss_ratio}_cluster-${clusters}_gen-${gen_rate}
-        log_p=results/ace/${method}_woMOO_woNAloss_cluster-${clusters}_gen-${gen_rate}
+        log_p=results/ace/woLMH_woMOO_woNAloss_woSR
         save_model=checkpoints/ace/${method}
 
         if [ ! -d  "${log_p}/perm_${i}" ];
@@ -32,9 +23,8 @@ do
             mkdir -p ${log_p}/perm_${i}
         fi
 
-        CUDA_VISIBLE_DEVICES=1 python run_train.py --mul_task_type ${method} \
+        CUDA_VISIBLE_DEVICES=0 python run_train.py --mul_task_type ${method} \
         --sam 0 \
-        --generate --generate_ratio 10 \
         --feature-root "data/ace_features" --stream-file "data/ACE/streams.json" \
         --datasetname ACE --log-dir "${log_p}/perm_${i}" \
         --load-model ${save_model} --perm-id ${i} --dropout "normal" --p 0.2 \

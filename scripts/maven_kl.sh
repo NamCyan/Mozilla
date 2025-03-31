@@ -22,6 +22,7 @@ do
     cp -r utils/worker.py ${log_p}/perm_${i}/
 
     CUDA_VISIBLE_DEVICES=0 python run_train.py \
+    --sam 0 --loss_trick \
     --log-dir "${log_p}/perm_${i}" --feature-root "data/features" --stream-file "data/MAVEN/streams.json" \
     --ot --mul_task_type ${method} \
     --perm-id ${i} --dropout "normal" --p 0.2 \

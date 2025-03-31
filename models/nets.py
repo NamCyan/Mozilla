@@ -26,7 +26,7 @@ numpy.random.seed(0)
 from utils.options import parse_arguments
 
 opts = parse_arguments()
-opts.lm_temp = 2
+
 class CustomMetaSequential(nn.Sequential, MetaModule):
     __doc__ = nn.Sequential.__doc__
 
@@ -573,7 +573,7 @@ class LInEx(MetaModule):
 
             if opts.lmh:
                 if opts.no_class_loss == False:
-                    loss += 0.2*self.class_loss()
+                    loss += opts.class_alpha*self.class_loss()
                 loss += 0.2*self.lm_head(features, inputs, self.nslots)
             if opts.loss_trick:
                 if len(plabels) > 0:

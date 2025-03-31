@@ -1,7 +1,7 @@
 import os
 import numpy as np
 
-rs_folder = "/datadrive5/namlh35/Mozilla/results/ace/FairGrad_mi_narate-40_cluster-4_gen-10"
+rs_folder = "/datadrive5/namlh35/Mozilla/results/maven/woLMH_woMOO_narate-4_cluster-4_gen-20"
 
 results = []
 

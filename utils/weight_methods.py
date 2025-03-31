@@ -11,7 +11,9 @@ from scipy.optimize import minimize, least_squares
 
 
 from .min_norm_solvers import MinNormSolver, gradient_normalizers
+from .options import parse_arguments
 
+opts = parse_arguments()
 
 class WeightMethod:
     def __init__(self, n_tasks: int, device: torch.device):
@@ -319,7 +321,7 @@ class FairGrad(WeightMethod):
         extra_outputs : dict
             Additional outputs, including task weights.
         """
-        alpha = self.kwargs.get("FairGrad_alpha", 0.8)
+        alpha = opts.fairgrad_alpha
 
         if representation is not None:
             raise ValueError("FairGrad does not support representation gradients (rep_grad=True)")

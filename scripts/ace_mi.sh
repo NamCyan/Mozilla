@@ -31,7 +31,7 @@ do
     --load-model ${save_model} --perm-id ${i} --dropout "normal" --p 0.2 \
     --mul_distill --mul_task --kt --kt2 \
     --train-epoch 30 --patience 6 --init-slots 13  \
-    --generate --generate_ratio 10 \
+    --generate --generate_ratio ${gen_rate} \
     --naloss_ratio 40  --max-slot 34 --batch-size 256 --learning-rate 1e-4 \
     --mode herding --clusters 4 --num_sam_loss 2 > ${log_p}/perm_${i}/exp.log
 done
