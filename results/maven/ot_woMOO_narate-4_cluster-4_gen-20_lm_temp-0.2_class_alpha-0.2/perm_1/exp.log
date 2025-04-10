@@ -241,3 +241,10 @@ patience: 3 / 5
 Epoch   9  Train Loss 3.2267 93.25%
 Epoch   9:  Dev 0.5931559205055237
 patience: 4 / 5
+Epoch  10  Train Loss 3.2259 93.31%
+Epoch  10:  Dev 0.593207836151123
+patience: 5 / 5
+setting train exemplar for learned classes
+torch.Size([3360, 2048])
+BEST DEV 4: 0.6012328863143921
+BEST TEST 4: 0.6097666025161743

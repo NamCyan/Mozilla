@@ -1,0 +1,184 @@
+INFO:root:Namespace(json_root='./data', feature_root='data/ace_features', stream_file='data/ACE/streams.json', batch_size=256, init_slots=13, patience=6, input_dim=2048, hidden_dim=512, max_slots=34, perm_id=3, no_gpu=False, gpu=0, learning_rate=0.0001, decay=0.01, kt_alpha=0.25, kt_gamma=0.05, kt_tau=1.0, kt_delta=0.5, seed=2147483647, save_model='model', load_model='checkpoints/ace/NashMTL_kl', log_dir='results/ace/NashMTL_kl_narate-10_cluster-4_gen-10_lm_temp-2_class_alpha-0.2/perm_3', train_epoch=30, test_only=False, kt=True, kt2=True, finetune=False, load_first='', skip_first=False, load_second='', skip_second=False, balance='none', setting='classic', mode='herding', kt_mode='herding', clusters=4, generate=True, sample_size=2, features_distill=False, hyer_distill=False, reduce_na=False, new_test_mode=False, num_loss=4, mul_task=True, contrastive=False, mul_distill=True, mul_task_type='NashMTL', naive_replay=False, debug=False, colab_viet=False, datasetname='ACE', center_ratio=1, generate_ratio=10, naloss_ratio=10, dropout='normal', p=0.2, num_sam_loss=2, sam=1, ot=False, mi=False, lmh=True, loss_trick=True, llm2vec=False, no_lm_head=False, no_class_loss=False, fairgrad_alpha=0.8, class_alpha=0.2, lm_temp=2.0, log='results/ace/NashMTL_kl_narate-10_cluster-4_gen-10_lm_temp-2_class_alpha-0.2/perm_3/logfile.log')
+INFO:root:{0: 0, 191: 1, 187: 2, 195: 3, 171: 4, 174: 5, 179: 6, 201: 7, 183: 8, 193: 9, 172: 10, 175: 11, 188: 12, 199: 13, 184: 14, 194: 15, 189: 16, 190: 17, 178: 18, 186: 19, 197: 20, 200: 21, 180: 22, 173: 23, 198: 24, 177: 25, 196: 26, 181: 27, 182: 28, 202: 29, 185: 30, 176: 31, 170: 32, 192: 33}
+INFO:root:Epoch   1  Train Loss 0.1941 98.91%
+INFO:root:Epoch   1:  Dev 0.3163841664791107
+INFO:root:Epoch   1: Test 0.31714287400245667
+INFO:root:Epoch   2  Train Loss 0.0741 99.22%
+INFO:root:Epoch   2:  Dev 0.3550296127796173
+INFO:root:Epoch   2: Test 0.41697415709495544
+INFO:root:Epoch   3  Train Loss 0.0531 99.29%
+INFO:root:Epoch   3:  Dev 0.2612244784832001
+INFO:root:Epoch   4  Train Loss 0.0402 99.35%
+INFO:root:Epoch   4:  Dev 0.4923076927661896
+INFO:root:Epoch   4: Test 0.5079364776611328
+INFO:root:Epoch   5  Train Loss 0.0301 99.46%
+INFO:root:Epoch   5:  Dev 0.37647056579589844
+INFO:root:Epoch   6  Train Loss 0.0244 99.52%
+INFO:root:Epoch   6:  Dev 0.3478260636329651
+INFO:root:Epoch   7  Train Loss 0.0228 99.57%
+INFO:root:Epoch   7:  Dev 0.4313725531101227
+INFO:root:Epoch   8  Train Loss 0.0190 99.62%
+INFO:root:Epoch   8:  Dev 0.4848485291004181
+INFO:root:Epoch   9  Train Loss 0.0166 99.66%
+INFO:root:Epoch   9:  Dev 0.4848485291004181
+INFO:root:Epoch  10  Train Loss 0.0152 99.71%
+INFO:root:Epoch  10:  Dev 0.45255473256111145
+INFO:root:BEST DEV 0: 0.4923076927661896
+INFO:root:BEST TEST 0: 0.5079364776611328
+INFO:root:Epoch   1  Train Loss 3.5825 97.68%
+INFO:root:Epoch   1:  Dev 0.457446813583374
+INFO:root:Epoch   1: Test 0.5438066720962524
+INFO:root:Epoch   2  Train Loss 3.4555 99.05%
+INFO:root:Epoch   2:  Dev 0.567685604095459
+INFO:root:Epoch   2: Test 0.635481059551239
+INFO:root:Epoch   3  Train Loss 3.4346 99.16%
+INFO:root:Epoch   3:  Dev 0.5683297514915466
+INFO:root:Epoch   3: Test 0.6294682025909424
+INFO:root:Epoch   4  Train Loss 3.4194 99.24%
+INFO:root:Epoch   4:  Dev 0.5726872086524963
+INFO:root:Epoch   4: Test 0.6412754654884338
+INFO:root:Epoch   5  Train Loss 3.4061 99.31%
+INFO:root:Epoch   5:  Dev 0.5931034088134766
+INFO:root:Epoch   5: Test 0.650943398475647
+INFO:root:Epoch   6  Train Loss 3.4085 99.38%
+INFO:root:Epoch   6:  Dev 0.5577341914176941
+INFO:root:Epoch   7  Train Loss 3.3996 99.42%
+INFO:root:Epoch   7:  Dev 0.6142857074737549
+INFO:root:Epoch   7: Test 0.6660323739051819
+INFO:root:Epoch   8  Train Loss 3.3967 99.47%
+INFO:root:Epoch   8:  Dev 0.6028037667274475
+INFO:root:Epoch   9  Train Loss 3.3948 99.51%
+INFO:root:Epoch   9:  Dev 0.5917431116104126
+INFO:root:Epoch  10  Train Loss 3.3853 99.55%
+INFO:root:Epoch  10:  Dev 0.6223278045654297
+INFO:root:Epoch  10: Test 0.6450417041778564
+INFO:root:Epoch  11  Train Loss 3.3869 99.57%
+INFO:root:Epoch  11:  Dev 0.6388206481933594
+INFO:root:Epoch  11: Test 0.6718146204948425
+INFO:root:Epoch  12  Train Loss 3.3867 99.60%
+INFO:root:Epoch  12:  Dev 0.6449999809265137
+INFO:root:Epoch  12: Test 0.6837944984436035
+INFO:root:Epoch  13  Train Loss 3.3776 99.64%
+INFO:root:Epoch  13:  Dev 0.6225490570068359
+INFO:root:Epoch  14  Train Loss 3.3779 99.65%
+INFO:root:Epoch  14:  Dev 0.6464647054672241
+INFO:root:Epoch  14: Test 0.6780683994293213
+INFO:root:Epoch  15  Train Loss 3.3815 99.67%
+INFO:root:Epoch  15:  Dev 0.6299999952316284
+INFO:root:Epoch  16  Train Loss 3.3777 99.68%
+INFO:root:Epoch  16:  Dev 0.6336633563041687
+INFO:root:Epoch  17  Train Loss 3.3780 99.68%
+INFO:root:Epoch  17:  Dev 0.6395938992500305
+INFO:root:Epoch  18  Train Loss 3.3789 99.70%
+INFO:root:Epoch  18:  Dev 0.6280193328857422
+INFO:root:Epoch  19  Train Loss 3.3711 99.71%
+INFO:root:Epoch  19:  Dev 0.644501268863678
+INFO:root:Epoch  20  Train Loss 3.3695 99.72%
+INFO:root:Epoch  20:  Dev 0.6410256624221802
+INFO:root:BEST DEV 1: 0.6464647054672241
+INFO:root:BEST TEST 1: 0.6780683994293213
+INFO:root:Epoch   1  Train Loss 3.6043 95.82%
+INFO:root:Epoch   1:  Dev 0.5357142686843872
+INFO:root:Epoch   1: Test 0.6609735488891602
+INFO:root:Epoch   2  Train Loss 3.2588 99.39%
+INFO:root:Epoch   2:  Dev 0.5762237906455994
+INFO:root:Epoch   2: Test 0.6883230805397034
+INFO:root:Epoch   3  Train Loss 3.2284 99.46%
+INFO:root:Epoch   3:  Dev 0.5746164321899414
+INFO:root:Epoch   4  Train Loss 3.2092 99.49%
+INFO:root:Epoch   4:  Dev 0.5418848395347595
+INFO:root:Epoch   5  Train Loss 3.1919 99.55%
+INFO:root:Epoch   5:  Dev 0.5515394806861877
+INFO:root:Epoch   6  Train Loss 3.1793 99.59%
+INFO:root:Epoch   6:  Dev 0.5326370596885681
+INFO:root:Epoch   7  Train Loss 3.1681 99.62%
+INFO:root:Epoch   7:  Dev 0.5623268485069275
+INFO:root:Epoch   8  Train Loss 3.1582 99.67%
+INFO:root:Epoch   8:  Dev 0.5927007794380188
+INFO:root:Epoch   8: Test 0.6954954862594604
+INFO:root:Epoch   9  Train Loss 3.1553 99.69%
+INFO:root:Epoch   9:  Dev 0.5560165643692017
+INFO:root:Epoch  10  Train Loss 3.1538 99.72%
+INFO:root:Epoch  10:  Dev 0.5378378629684448
+INFO:root:Epoch  11  Train Loss 3.1462 99.74%
+INFO:root:Epoch  11:  Dev 0.5855855941772461
+INFO:root:Epoch  12  Train Loss 3.1422 99.75%
+INFO:root:Epoch  12:  Dev 0.5633803009986877
+INFO:root:Epoch  13  Train Loss 3.1424 99.77%
+INFO:root:Epoch  13:  Dev 0.5753424167633057
+INFO:root:Epoch  14  Train Loss 3.1399 99.77%
+INFO:root:Epoch  14:  Dev 0.5572842955589294
+INFO:root:BEST DEV 2: 0.5927007794380188
+INFO:root:BEST TEST 2: 0.6954954862594604
+INFO:root:Epoch   1  Train Loss 3.1158 94.88%
+INFO:root:Epoch   1:  Dev 0.5610010027885437
+INFO:root:Epoch   1: Test 0.6348547339439392
+INFO:root:Epoch   2  Train Loss 2.6628 99.13%
+INFO:root:Epoch   2:  Dev 0.5469061732292175
+INFO:root:Epoch   3  Train Loss 2.6419 99.22%
+INFO:root:Epoch   3:  Dev 0.5628997683525085
+INFO:root:Epoch   3: Test 0.6299434304237366
+INFO:root:Epoch   4  Train Loss 2.6262 99.33%
+INFO:root:Epoch   4:  Dev 0.5600000023841858
+INFO:root:Epoch   5  Train Loss 2.6185 99.41%
+INFO:root:Epoch   5:  Dev 0.5866666436195374
+INFO:root:Epoch   5: Test 0.6449659466743469
+INFO:root:Epoch   6  Train Loss 2.6097 99.48%
+INFO:root:Epoch   6:  Dev 0.604434072971344
+INFO:root:Epoch   6: Test 0.6568551659584045
+INFO:root:Epoch   7  Train Loss 2.6020 99.53%
+INFO:root:Epoch   7:  Dev 0.5850340127944946
+INFO:root:Epoch   8  Train Loss 2.5978 99.58%
+INFO:root:Epoch   8:  Dev 0.59415203332901
+INFO:root:Epoch   9  Train Loss 2.5944 99.64%
+INFO:root:Epoch   9:  Dev 0.5791854858398438
+INFO:root:Epoch  10  Train Loss 2.5914 99.66%
+INFO:root:Epoch  10:  Dev 0.5783972144126892
+INFO:root:Epoch  11  Train Loss 2.5873 99.68%
+INFO:root:Epoch  11:  Dev 0.5848375558853149
+INFO:root:Epoch  12  Train Loss 2.5835 99.72%
+INFO:root:Epoch  12:  Dev 0.6000000238418579
+INFO:root:BEST DEV 3: 0.604434072971344
+INFO:root:BEST TEST 3: 0.6568551659584045
+INFO:root:Epoch   1  Train Loss 4.1065 93.10%
+INFO:root:Epoch   1:  Dev 0.5665773153305054
+INFO:root:Epoch   1: Test 0.6011834740638733
+INFO:root:Epoch   2  Train Loss 3.4024 99.28%
+INFO:root:Epoch   2:  Dev 0.5841209888458252
+INFO:root:Epoch   2: Test 0.6032906770706177
+INFO:root:Epoch   3  Train Loss 3.3718 99.36%
+INFO:root:Epoch   3:  Dev 0.5783132314682007
+INFO:root:Epoch   4  Train Loss 3.3417 99.44%
+INFO:root:Epoch   4:  Dev 0.5990049839019775
+INFO:root:Epoch   4: Test 0.6200647354125977
+INFO:root:Epoch   5  Train Loss 3.3243 99.49%
+INFO:root:Epoch   5:  Dev 0.5891473293304443
+INFO:root:Epoch   6  Train Loss 3.3130 99.54%
+INFO:root:Epoch   6:  Dev 0.5952380299568176
+INFO:root:Epoch   7  Train Loss 3.3016 99.58%
+INFO:root:Epoch   7:  Dev 0.5978578329086304
+INFO:root:Epoch   8  Train Loss 3.2918 99.61%
+INFO:root:Epoch   8:  Dev 0.6093264222145081
+INFO:root:Epoch   8: Test 0.6074270606040955
+INFO:root:Epoch   9  Train Loss 3.2855 99.66%
+INFO:root:Epoch   9:  Dev 0.599799394607544
+INFO:root:Epoch  10  Train Loss 3.2763 99.70%
+INFO:root:Epoch  10:  Dev 0.6106557846069336
+INFO:root:Epoch  10: Test 0.6158940196037292
+INFO:root:Epoch  11  Train Loss 3.2718 99.73%
+INFO:root:Epoch  11:  Dev 0.6189473867416382
+INFO:root:Epoch  11: Test 0.6137281656265259
+INFO:root:Epoch  12  Train Loss 3.2711 99.74%
+INFO:root:Epoch  12:  Dev 0.6084275245666504
+INFO:root:Epoch  13  Train Loss 3.2677 99.74%
+INFO:root:Epoch  13:  Dev 0.6064382195472717
+INFO:root:Epoch  14  Train Loss 3.2651 99.76%
+INFO:root:Epoch  14:  Dev 0.6144200563430786
+INFO:root:Epoch  15  Train Loss 3.2655 99.77%
+INFO:root:Epoch  15:  Dev 0.6030768752098083
+INFO:root:Epoch  16  Train Loss 3.2618 99.79%
+INFO:root:Epoch  16:  Dev 0.6077002882957458
+INFO:root:Epoch  17  Train Loss 3.2594 99.80%
+INFO:root:Epoch  17:  Dev 0.6182212233543396
+INFO:root:BEST DEV 4: 0.6189473867416382
+INFO:root:BEST TEST 4: 0.6137281656265259

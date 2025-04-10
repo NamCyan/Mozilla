@@ -51,7 +51,7 @@ def define_arguments(parser):
     parser.add_argument('--mul_task', action="store_true", help='epochs to train')
     parser.add_argument("--contrastive", action="store_true", help="contrastive loss")
     parser.add_argument("--mul_distill", action="store_true")
-    parser.add_argument("--mul_task_type", type=str, choices=['NashMTL','PCGrad','IMTLG', 'MGDA', 'FairGrad'], default='NashMTL')
+    parser.add_argument("--mul_task_type", type=str, choices=['NashMTL','PCGrad','IMTLG', 'MGDA', 'FairGrad', 'ExcessMTL'], default='NashMTL')
     parser.add_argument("--naive_replay", action="store_true")
 
 
@@ -76,6 +76,7 @@ def define_arguments(parser):
     parser.add_argument("--fairgrad_alpha", type=float, default=0.8)
     parser.add_argument("--class_alpha", type=float, default=0.2)
     parser.add_argument("--lm_temp", type=float, default=0.2)
+    parser.add_argument("--robust_step_size", type=float, default=0.001, help='robust step size for ExcessMTL')
 
 
 PERM = [[0, 1, 2, 3,4], [4, 3, 2, 1, 0], [0, 3, 1, 4, 2], [1, 2, 0, 3, 4], [3, 4, 0, 1, 2]]

@@ -146,3 +146,7 @@ INFO:root:Epoch   8  Train Loss 3.2278 93.16%
 INFO:root:Epoch   8:  Dev 0.592939555644989
 INFO:root:Epoch   9  Train Loss 3.2267 93.25%
 INFO:root:Epoch   9:  Dev 0.5931559205055237
+INFO:root:Epoch  10  Train Loss 3.2259 93.31%
+INFO:root:Epoch  10:  Dev 0.593207836151123
+INFO:root:BEST DEV 4: 0.6012328863143921
+INFO:root:BEST TEST 4: 0.6097666025161743

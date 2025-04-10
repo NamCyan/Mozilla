@@ -1,0 +1,396 @@
+Dump name space
+results/ace/mi_woMOO_narate-40_cluster-4_gen-10_lm_temp-2_class_alpha-0.2/perm_4/options.json
+Dump name space
+results/ace/mi_woMOO_narate-40_cluster-4_gen-10_lm_temp-2_class_alpha-0.2/perm_4/options.json
+Dump name space
+results/ace/mi_woMOO_narate-40_cluster-4_gen-10_lm_temp-2_class_alpha-0.2/perm_4/options.json
+Dump name space
+results/ace/mi_woMOO_narate-40_cluster-4_gen-10_lm_temp-2_class_alpha-0.2/perm_4/options.json
+Dump name space
+results/ace/mi_woMOO_narate-40_cluster-4_gen-10_lm_temp-2_class_alpha-0.2/perm_4/options.json
+[[200, 180, 173, 198, 177, 0], [196, 181, 182, 202, 185, 176, 170, 192, 0], [188, 199, 184, 194, 189, 190, 178, 186, 197, 0], [191, 187, 195, 171, 174, 179, 0], [201, 183, 193, 172, 175, 0]]
+False
+train loader and exclude loader:  0
+Original len train instances: 265115
+train loader and exclude loader:  1
+Original len train instances: 264396
+train loader and exclude loader:  2
+Original len train instances: 263784
+train loader and exclude loader:  3
+Original len train instances: 263200
+train loader and exclude loader:  4
+Original len train instances: 262361
+Original len dev instances: 54053
+Original len test instances: 93949
+create basgMTL 4
+False True
+Epoch   1  Train Loss 1.1819 98.11%
+Epoch   1:  Dev 0.5381526350975037
+Epoch   1: Test 0.4475138485431671
+patience: 0 / 6
+Epoch   2  Train Loss 1.1295 98.35%
+Epoch   2:  Dev 0.4345237910747528
+patience: 1 / 6
+Epoch   3  Train Loss 1.1249 98.41%
+Epoch   3:  Dev 0.5190839767456055
+patience: 2 / 6
+Epoch   4  Train Loss 1.1216 98.46%
+Epoch   4:  Dev 0.6146341562271118
+Epoch   4: Test 0.5530303120613098
+patience: 0 / 6
+Epoch   5  Train Loss 1.1189 98.51%
+Epoch   5:  Dev 0.5596707463264465
+patience: 1 / 6
+Epoch   6  Train Loss 1.1174 98.54%
+Epoch   6:  Dev 0.5877192616462708
+patience: 2 / 6
+Epoch   7  Train Loss 1.1164 98.56%
+Epoch   7:  Dev 0.49635037779808044
+patience: 3 / 6
+Epoch   8  Train Loss 1.1146 98.59%
+Epoch   8:  Dev 0.5434781908988953
+patience: 4 / 6
+Epoch   9  Train Loss 1.1140 98.62%
+Epoch   9:  Dev 0.41009461879730225
+patience: 5 / 6
+Epoch  10  Train Loss 1.1135 98.62%
+Epoch  10:  Dev 0.49074074625968933
+patience: 6 / 6
+setting train exemplar for learned classes
+torch.Size([100, 2048])
+BEST DEV 0: 0.6146341562271118
+BEST TEST 0: 0.5530303120613098
+torch.Size([100, 2048])
+Epoch   1  Train Loss 0.7820 98.21%
+Epoch   1:  Dev 0.5237113237380981
+Epoch   1: Test 0.5110132098197937
+patience: 0 / 6
+Epoch   2  Train Loss 0.7552 98.62%
+Epoch   2:  Dev 0.5129310488700867
+patience: 1 / 6
+Epoch   3  Train Loss 0.7502 98.67%
+Epoch   3:  Dev 0.535469114780426
+Epoch   3: Test 0.5032467246055603
+patience: 0 / 6
+Epoch   4  Train Loss 0.7473 98.72%
+Epoch   4:  Dev 0.5735660791397095
+Epoch   4: Test 0.5112262964248657
+patience: 0 / 6
+Epoch   5  Train Loss 0.7453 98.76%
+Epoch   5:  Dev 0.5609755516052246
+patience: 1 / 6
+Epoch   6  Train Loss 0.7445 98.78%
+Epoch   6:  Dev 0.5845271944999695
+Epoch   6: Test 0.5055761933326721
+patience: 0 / 6
+Epoch   7  Train Loss 0.7432 98.81%
+Epoch   7:  Dev 0.5824742317199707
+patience: 1 / 6
+Epoch   8  Train Loss 0.7426 98.83%
+Epoch   8:  Dev 0.5691056847572327
+patience: 2 / 6
+Epoch   9  Train Loss 0.7424 98.83%
+Epoch   9:  Dev 0.5999999046325684
+Epoch   9: Test 0.4847457706928253
+patience: 0 / 6
+Epoch  10  Train Loss 0.7418 98.86%
+Epoch  10:  Dev 0.5981308817863464
+patience: 1 / 6
+Epoch  11  Train Loss 0.7418 98.86%
+Epoch  11:  Dev 0.5869564414024353
+patience: 2 / 6
+Epoch  12  Train Loss 0.7409 98.88%
+Epoch  12:  Dev 0.6067414879798889
+Epoch  12: Test 0.48235294222831726
+patience: 0 / 6
+Epoch  13  Train Loss 0.7413 98.87%
+Epoch  13:  Dev 0.5771428346633911
+patience: 1 / 6
+Epoch  14  Train Loss 0.7407 98.89%
+Epoch  14:  Dev 0.5411764979362488
+patience: 2 / 6
+Epoch  15  Train Loss 0.7407 98.89%
+Epoch  15:  Dev 0.5966850519180298
+patience: 3 / 6
+Epoch  16  Train Loss 0.7408 98.88%
+Epoch  16:  Dev 0.6086955666542053
+Epoch  16: Test 0.5
+patience: 0 / 6
+Epoch  17  Train Loss 0.7404 98.89%
+Epoch  17:  Dev 0.5994235873222351
+patience: 1 / 6
+Epoch  18  Train Loss 0.7407 98.90%
+Epoch  18:  Dev 0.6220930814743042
+Epoch  18: Test 0.4950883984565735
+patience: 0 / 6
+Epoch  19  Train Loss 0.7406 98.90%
+Epoch  19:  Dev 0.583783745765686
+patience: 1 / 6
+Epoch  20  Train Loss 0.7403 98.90%
+Epoch  20:  Dev 0.5950412750244141
+patience: 2 / 6
+Epoch  21  Train Loss 0.7405 98.89%
+Epoch  21:  Dev 0.6084337830543518
+patience: 3 / 6
+Epoch  22  Train Loss 0.7400 98.91%
+Epoch  22:  Dev 0.617647111415863
+patience: 4 / 6
+Epoch  23  Train Loss 0.7400 98.91%
+Epoch  23:  Dev 0.591715931892395
+patience: 5 / 6
+Epoch  24  Train Loss 0.7401 98.91%
+Epoch  24:  Dev 0.5959885120391846
+patience: 6 / 6
+setting train exemplar for learned classes
+torch.Size([260, 2048])
+BEST DEV 1: 0.6220930814743042
+BEST TEST 1: 0.4950883984565735
+torch.Size([260, 2048])
+Epoch   1  Train Loss 0.6767 98.43%
+Epoch   1:  Dev 0.5350876450538635
+Epoch   1: Test 0.49078014492988586
+patience: 0 / 6
+Epoch   2  Train Loss 0.6596 98.95%
+Epoch   2:  Dev 0.5113182663917542
+patience: 1 / 6
+Epoch   3  Train Loss 0.6565 98.99%
+Epoch   3:  Dev 0.5587786436080933
+Epoch   3: Test 0.5028735399246216
+patience: 0 / 6
+Epoch   4  Train Loss 0.6552 99.01%
+Epoch   4:  Dev 0.5657894611358643
+Epoch   4: Test 0.5149701237678528
+patience: 0 / 6
+Epoch   5  Train Loss 0.6544 99.04%
+Epoch   5:  Dev 0.5750395059585571
+Epoch   5: Test 0.5267857313156128
+patience: 0 / 6
+Epoch   6  Train Loss 0.6539 99.06%
+Epoch   6:  Dev 0.5286713242530823
+patience: 1 / 6
+Epoch   7  Train Loss 0.6540 99.06%
+Epoch   7:  Dev 0.5591397285461426
+patience: 2 / 6
+Epoch   8  Train Loss 0.6536 99.07%
+Epoch   8:  Dev 0.5419161319732666
+patience: 3 / 6
+Epoch   9  Train Loss 0.6533 99.09%
+Epoch   9:  Dev 0.5533230304718018
+patience: 4 / 6
+Epoch  10  Train Loss 0.6532 99.09%
+Epoch  10:  Dev 0.5776293277740479
+Epoch  10: Test 0.523952066898346
+patience: 0 / 6
+Epoch  11  Train Loss 0.6533 99.09%
+Epoch  11:  Dev 0.570982813835144
+patience: 1 / 6
+Epoch  12  Train Loss 0.6529 99.09%
+Epoch  12:  Dev 0.5868465304374695
+Epoch  12: Test 0.5364340543746948
+patience: 0 / 6
+Epoch  13  Train Loss 0.6528 99.09%
+Epoch  13:  Dev 0.575707197189331
+patience: 1 / 6
+Epoch  14  Train Loss 0.6531 99.09%
+Epoch  14:  Dev 0.5641025304794312
+patience: 2 / 6
+Epoch  15  Train Loss 0.6525 99.11%
+Epoch  15:  Dev 0.5582923293113708
+patience: 3 / 6
+Epoch  16  Train Loss 0.6525 99.10%
+Epoch  16:  Dev 0.5847176313400269
+patience: 4 / 6
+Epoch  17  Train Loss 0.6525 99.10%
+Epoch  17:  Dev 0.5390505194664001
+patience: 5 / 6
+Epoch  18  Train Loss 0.6524 99.11%
+Epoch  18:  Dev 0.5852842926979065
+patience: 6 / 6
+setting train exemplar for learned classes
+torch.Size([440, 2048])
+BEST DEV 2: 0.5868465304374695
+BEST TEST 2: 0.5364340543746948
+torch.Size([440, 2048])
+Epoch   1  Train Loss 0.7610 98.80%
+Epoch   1:  Dev 0.5487256050109863
+Epoch   1: Test 0.5543709993362427
+patience: 0 / 6
+Epoch   2  Train Loss 0.7589 99.22%
+Epoch   2:  Dev 0.5444287657737732
+patience: 1 / 6
+Epoch   3  Train Loss 0.7570 99.24%
+Epoch   3:  Dev 0.5528219938278198
+Epoch   3: Test 0.5602537393569946
+patience: 0 / 6
+Epoch   4  Train Loss 0.7562 99.27%
+Epoch   4:  Dev 0.5601173043251038
+Epoch   4: Test 0.5354969501495361
+patience: 0 / 6
+Epoch   5  Train Loss 0.7555 99.30%
+Epoch   5:  Dev 0.5647743940353394
+Epoch   5: Test 0.5600836277008057
+patience: 0 / 6
+Epoch   6  Train Loss 0.7554 99.32%
+Epoch   6:  Dev 0.5502958297729492
+patience: 1 / 6
+Epoch   7  Train Loss 0.7550 99.34%
+Epoch   7:  Dev 0.5676470398902893
+Epoch   7: Test 0.5521472096443176
+patience: 0 / 6
+Epoch   8  Train Loss 0.7543 99.35%
+Epoch   8:  Dev 0.5553914308547974
+patience: 1 / 6
+Epoch   9  Train Loss 0.7540 99.36%
+Epoch   9:  Dev 0.5465288162231445
+patience: 2 / 6
+Epoch  10  Train Loss 0.7541 99.37%
+Epoch  10:  Dev 0.5740181803703308
+Epoch  10: Test 0.5693122148513794
+patience: 0 / 6
+Epoch  11  Train Loss 0.7535 99.38%
+Epoch  11:  Dev 0.5779815912246704
+Epoch  11: Test 0.5645513534545898
+patience: 0 / 6
+Epoch  12  Train Loss 0.7536 99.38%
+Epoch  12:  Dev 0.5638766288757324
+patience: 1 / 6
+Epoch  13  Train Loss 0.7536 99.39%
+Epoch  13:  Dev 0.5800604820251465
+Epoch  13: Test 0.5711110830307007
+patience: 0 / 6
+Epoch  14  Train Loss 0.7533 99.39%
+Epoch  14:  Dev 0.5499999523162842
+patience: 1 / 6
+Epoch  15  Train Loss 0.7539 99.39%
+Epoch  15:  Dev 0.5651537179946899
+patience: 2 / 6
+Epoch  16  Train Loss 0.7534 99.39%
+Epoch  16:  Dev 0.584234893321991
+Epoch  16: Test 0.5736961960792542
+patience: 0 / 6
+Epoch  17  Train Loss 0.7537 99.40%
+Epoch  17:  Dev 0.5829457640647888
+patience: 1 / 6
+Epoch  18  Train Loss 0.7531 99.40%
+Epoch  18:  Dev 0.5776397585868835
+patience: 2 / 6
+Epoch  19  Train Loss 0.7531 99.40%
+Epoch  19:  Dev 0.5752607583999634
+patience: 3 / 6
+Epoch  20  Train Loss 0.7529 99.41%
+Epoch  20:  Dev 0.5855162143707275
+Epoch  20: Test 0.5701558589935303
+patience: 0 / 6
+Epoch  21  Train Loss 0.7531 99.41%
+Epoch  21:  Dev 0.5795795321464539
+patience: 1 / 6
+Epoch  22  Train Loss 0.7531 99.41%
+Epoch  22:  Dev 0.582317054271698
+patience: 2 / 6
+Epoch  23  Train Loss 0.7530 99.41%
+Epoch  23:  Dev 0.5830721259117126
+patience: 3 / 6
+Epoch  24  Train Loss 0.7531 99.41%
+Epoch  24:  Dev 0.5869565010070801
+Epoch  24: Test 0.5586956739425659
+patience: 0 / 6
+Epoch  25  Train Loss 0.7525 99.42%
+Epoch  25:  Dev 0.5714285373687744
+patience: 1 / 6
+Epoch  26  Train Loss 0.7533 99.41%
+Epoch  26:  Dev 0.5658093690872192
+patience: 2 / 6
+Epoch  27  Train Loss 0.7527 99.41%
+Epoch  27:  Dev 0.5787879228591919
+patience: 3 / 6
+Epoch  28  Train Loss 0.7523 99.41%
+Epoch  28:  Dev 0.556851327419281
+patience: 4 / 6
+Epoch  29  Train Loss 0.7522 99.42%
+Epoch  29:  Dev 0.5714285969734192
+patience: 5 / 6
+Epoch  30  Train Loss 0.7527 99.41%
+Epoch  30:  Dev 0.5839874744415283
+patience: 6 / 6
+setting train exemplar for learned classes
+torch.Size([560, 2048])
+BEST DEV 3: 0.5869565010070801
+BEST TEST 3: 0.5586956739425659
+torch.Size([560, 2048])
+Epoch   1  Train Loss 1.0253 99.15%
+Epoch   1:  Dev 0.5965714454650879
+Epoch   1: Test 0.6305945515632629
+patience: 0 / 6
+Epoch   2  Train Loss 1.0405 99.63%
+Epoch   2:  Dev 0.6043829917907715
+Epoch   2: Test 0.6343129873275757
+patience: 0 / 6
+Epoch   3  Train Loss 1.0396 99.67%
+Epoch   3:  Dev 0.6139954924583435
+Epoch   3: Test 0.6223958134651184
+patience: 0 / 6
+Epoch   4  Train Loss 1.0390 99.70%
+Epoch   4:  Dev 0.6033149361610413
+patience: 1 / 6
+Epoch   5  Train Loss 1.0382 99.74%
+Epoch   5:  Dev 0.6119235157966614
+patience: 2 / 6
+Epoch   6  Train Loss 1.0385 99.76%
+Epoch   6:  Dev 0.6000000238418579
+patience: 3 / 6
+Epoch   7  Train Loss 1.0381 99.79%
+Epoch   7:  Dev 0.6078431606292725
+patience: 4 / 6
+Epoch   8  Train Loss 1.0378 99.80%
+Epoch   8:  Dev 0.6194895505905151
+Epoch   8: Test 0.6432432532310486
+patience: 0 / 6
+Epoch   9  Train Loss 1.0380 99.82%
+Epoch   9:  Dev 0.6090808510780334
+patience: 1 / 6
+Epoch  10  Train Loss 1.0377 99.82%
+Epoch  10:  Dev 0.6126126050949097
+patience: 2 / 6
+Epoch  11  Train Loss 1.0376 99.84%
+Epoch  11:  Dev 0.6192660331726074
+patience: 3 / 6
+Epoch  12  Train Loss 1.0377 99.84%
+Epoch  12:  Dev 0.6237054467201233
+Epoch  12: Test 0.6306549906730652
+patience: 0 / 6
+Epoch  13  Train Loss 1.0371 99.86%
+Epoch  13:  Dev 0.6217143535614014
+patience: 1 / 6
+Epoch  14  Train Loss 1.0374 99.85%
+Epoch  14:  Dev 0.6056644916534424
+patience: 2 / 6
+Epoch  15  Train Loss 1.0369 99.87%
+Epoch  15:  Dev 0.6271777153015137
+Epoch  15: Test 0.636052131652832
+patience: 0 / 6
+Epoch  16  Train Loss 1.0373 99.87%
+Epoch  16:  Dev 0.6289017200469971
+Epoch  16: Test 0.636734664440155
+patience: 0 / 6
+Epoch  17  Train Loss 1.0371 99.87%
+Epoch  17:  Dev 0.617511510848999
+patience: 1 / 6
+Epoch  18  Train Loss 1.0371 99.87%
+Epoch  18:  Dev 0.6071428656578064
+patience: 2 / 6
+Epoch  19  Train Loss 1.0371 99.88%
+Epoch  19:  Dev 0.6279863119125366
+patience: 3 / 6
+Epoch  20  Train Loss 1.0370 99.89%
+Epoch  20:  Dev 0.6186046600341797
+patience: 4 / 6
+Epoch  21  Train Loss 1.0367 99.89%
+Epoch  21:  Dev 0.6116611957550049
+patience: 5 / 6
+Epoch  22  Train Loss 1.0370 99.89%
+Epoch  22:  Dev 0.5979142785072327
+patience: 6 / 6
+setting train exemplar for learned classes
+torch.Size([660, 2048])
+BEST DEV 4: 0.6289017200469971
+BEST TEST 4: 0.636734664440155
