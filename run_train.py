@@ -5,6 +5,7 @@ import numpy as np
 import json
 import os
 from tqdm import tqdm
+from time import time
 
 from utils.optimizer import AdamW
 from torch.optim import SGD, Adagrad
@@ -186,6 +187,7 @@ def main():
                                                             exemplar=True, exemplar_distill=True, distill=True, tau=0.5,
                                                             feature_distill=opts.features_distill, hyer_distill=opts.hyer_distill, mul_distill=opts.mul_distill,
                                                             lambda_coef=1e-2)
+                time1 = time()
                 epoch_loss, epoch_metric = worker.run_one_epoch(
                         model=model,
                         f_loss=train_loss,
@@ -194,6 +196,8 @@ def main():
                         optimizer=optimizer,
                         collect_stats=collect_stats,
                         prog=loader_id)
+                time2 = time()
+                epoch_time= time2 - time1
                 
                 total_epoch += 1
                 # if opts.debug:
@@ -201,7 +205,7 @@ def main():
                 #     pdb.set_trace()
                 for output_log in [print, worker._log]:
                     output_log(
-                        f"Epoch {worker.epoch:3d}  Train Loss {epoch_loss} {epoch_metric}")
+                        f"Epoch {worker.epoch:3d}  Train Loss {epoch_loss} {epoch_metric} Time {epoch_time:.3f}s")
         else:
             learned_labels = set([t for stream in stage_labels for t in stream])
             termination = True
